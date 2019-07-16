@@ -1,13 +1,9 @@
 from django.shortcuts import render
+from django.views import View
 
-#Rendering Homepage site
-def index(request):
-	return render(request, 'home/index.html')
-
-#Rendering About Us site
-def about(request):
-	return render(request, 'home/about.html')
-
-#Rendering Contact site
-def contact(request):
-	return render(request, 'home/contact.html')
+#Rendering selected site
+class PageView(View):
+	#Path to template
+	template_name = 'home/index.html'
+	def get(self, request):
+		return render(request, self.template_name)

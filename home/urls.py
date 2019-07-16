@@ -1,11 +1,11 @@
 from django.urls import path
-from . import views
+from home.views import PageView
 
 #Namespace for home sites
 #Example: home:index
 app_name='home'
 urlpatterns = [
-	path('', views.index, name='index'),
-	path('about', views.about, name='about'),
-	path('contact', views.contact, name='contact')
+	path('', PageView.as_view(template_name='home/index.html'), name='index'),
+	path('about', PageView.as_view(template_name='home/about.html'), name='about'),
+	path('contact', PageView.as_view(template_name='home/contact.html'), name='contact')
 ]
