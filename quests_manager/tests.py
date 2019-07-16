@@ -15,7 +15,7 @@ class RenderQuestsCRUDViewsTest(TestCase):
     def test_render_list_view(self):
         quest = self.create_Quest_object()
         client = Client()
-        response = client.get('/quests')
+        response = client.get('/quests/')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, quest.title)
 
@@ -23,7 +23,7 @@ class RenderQuestsCRUDViewsTest(TestCase):
     #Testing displaying empty list
     def test_render_list_view_without_any_quests(self):
         client = Client()
-        response = client.get('/quests')
+        response = client.get('/quests/')
         self.assertEqual(response.status_code, 200)
 
     #Testing displaying details view
@@ -40,3 +40,10 @@ class RenderQuestsCRUDViewsTest(TestCase):
         client = Client()
         response = client.get('/quests/999')
         self.assertEqual(response.status_code, 404)
+
+    #Testing delieting Quest object
+    def test_deleting_quest(self):
+        quest = self.create_Quest_object()
+        client = Client()
+        response = client.get('/quests/'+str(quest.id)+'/delete')
+        self.assertEqual(response.status_code, 302)
