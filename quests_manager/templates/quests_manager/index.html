@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Listing Quests
+{% endblock %}
+
+{% block content %}
+<h1>Quests</h1>
+{% for quest in quests %}
+<div class="jumbotron">
+  <h1 class="display-4">{{ quest.title }}</h1>
+  <p class="lead">{{ quest.body }}</p>
+  <hr class="my-4">
+  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+</div>
+{% endfor %}
+{% endblock %}

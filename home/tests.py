@@ -1,5 +1,6 @@
 from django.test import TestCase, Client
 
+
 class RenderHomepageViewsTest(TestCase):
 
     #Trying to render index view

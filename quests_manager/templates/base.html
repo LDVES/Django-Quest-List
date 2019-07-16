@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    {% load static  %}
+    <link rel="stylesheet" href="{% static 'home/css/bootstrap.min.css' %}">
+
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+
+  {% block navbar %}
+    {% include 'init/navbar.html' %}
+  {% endblock %}
+
+	{% block content %}
+	{% endblock %}
+
+  {% block footer %}
+    {% include 'init/footer.html' %}
+  {% endblock %}
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{% static 'home/js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'home/js/popper.min.js' %}"></script>
+    <script src="{% static 'home/js/bootstrap.min.js' %}" ></script>
+  </body>
+</html>
