@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Details | {{ quest.title }}
+{% endblock %}
+
+{% block content %}
+<h1>{{ quest.title }}</h1>
+{{ quest.body }}
+{% endblock %}

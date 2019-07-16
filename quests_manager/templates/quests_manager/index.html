@@ -11,7 +11,7 @@ Listing Quests
   <h1 class="display-4">{{ quest.title }}</h1>
   <p class="lead">{{ quest.body }}</p>
   <hr class="my-4">
-  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+  <a class="btn btn-primary btn-lg" href="{% url 'quests_manager:detail' quest.id %}" role="button">Learn more</a>
 </div>
 {% endfor %}
 {% endblock %}
