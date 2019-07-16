@@ -6,6 +6,7 @@ Listing Quests
 
 {% block content %}
 <h1>Quests</h1>
+{% if quests %}
 {% for quest in quests %}
 <div class="jumbotron">
   <h1 class="display-4">{{ quest.title }}</h1>
@@ -14,4 +15,8 @@ Listing Quests
   <a class="btn btn-primary btn-lg" href="{% url 'quests_manager:detail' quest.id %}" role="button">Learn more</a>
 </div>
 {% endfor %}
+{% else %}
+No quests to display.
+{% endif %}
+
 {% endblock %}
