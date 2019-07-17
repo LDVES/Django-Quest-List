@@ -54,9 +54,13 @@ class RenderDeleteViewTest(TestCase):
         quest.save()
         client = Client()
         quest_title = quest.title
+        quest_id = quest.id
         response = client.get('/quests/'+str(quest.id)+'/delete')
+        list_view_after_deletion = client.get('/quests/')
+        detail_view_after_deletion = client.get('/quests/'+str(quest_id))
         self.assertEqual(response.status_code, 302)
-
+        self.assertEqual(detail_view_after_deletion.status_code, 404)
+        self.assertNotContains(list_view_after_deletion, quest_title)
 
     #Testing deleting Quest object, which doesn't exist
     def test_deleting_quest_with_bad_id(self):
