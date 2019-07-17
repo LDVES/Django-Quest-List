@@ -7,4 +7,8 @@ Details | {{ quest.title }}
 {% block content %}
 <h1>{{ quest.title }}</h1>
 {{ quest.body }}
+<form>
+{% csrf_token %}
+<a class="btn btn-danger" href="{% url 'quests_manager:delete' quest.id%}">Delete</a>
+</form>
 {% endblock %}

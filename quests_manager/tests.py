@@ -1,15 +1,12 @@
 from django.test import TestCase, Client
 from .models import Quest
-# Create your views here.
-#CRUD - Create Read Update Delete
-class RenderQuestsCRUDViewsTest(TestCase):
 
+class RenderListViewTest(TestCase):
     #creates Quest object
     def create_Quest_object(self):
         test_quest = Quest(title="Quest2", body="Quest2 body")
         test_quest.save()
         return test_quest
-
 
     #Testing displaying list of quests
     def test_render_list_view(self):
@@ -26,6 +23,14 @@ class RenderQuestsCRUDViewsTest(TestCase):
         response = client.get('/quests/')
         self.assertEqual(response.status_code, 200)
 
+
+class RenderDetailViewTest(TestCase):
+    #creates Quest object
+    def create_Quest_object(self):
+        test_quest = Quest(title="Quest2", body="Quest2 body")
+        test_quest.save()
+        return test_quest
+
     #Testing displaying details view
     def test_render_details_view(self):
         quest = self.create_Quest_object()
@@ -41,9 +46,20 @@ class RenderQuestsCRUDViewsTest(TestCase):
         response = client.get('/quests/999')
         self.assertEqual(response.status_code, 404)
 
-    #Testing delieting Quest object
+class RenderDeleteViewTest(TestCase):
+
+    #Testing deleting Quest object
     def test_deleting_quest(self):
-        quest = self.create_Quest_object()
+        quest = Quest(title="Quest3443433", body="Quest34434")
+        quest.save()
         client = Client()
+        quest_title = quest.title
         response = client.get('/quests/'+str(quest.id)+'/delete')
         self.assertEqual(response.status_code, 302)
+
+
+    #Testing deleting Quest object, which doesn't exist
+    def test_deleting_quest_with_bad_id(self):
+        client = Client()
+        response = client.get('/quests/'+'error'+'/delete')
+        self.assertEqual(response.status_code, 404)

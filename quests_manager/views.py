@@ -16,6 +16,7 @@ class DetailView(View):
         quest = get_object_or_404(Quest, id=quest_id)
         return render(request, self.template_name, { 'quest' : quest })
 
+#Deleting Quest
 class DeleteQuestView(View):
     def get(self, request, quest_id):
         quest = get_object_or_404(Quest, id=quest_id)
