@@ -1,5 +1,6 @@
 from django.test import TestCase, Client
 from .models import Quest
+from quests_manager.forms import AddQuestForm
 
 class RenderListViewTest(TestCase):
     #creates Quest object
@@ -67,3 +68,22 @@ class RenderDeleteViewTest(TestCase):
         client = Client()
         response = client.get('/quests/'+'error'+'/delete')
         self.assertEqual(response.status_code, 404)
+
+class RenderQuestAddViewTest(TestCase):
+    #Testing rendering QuestAdd form
+    def test_rendering_form(self):
+        client = Client()
+        response = client.get('/quests/add')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'title')
+        self.assertContains(response, 'body')
+        self.assertContains(response, '</form>')
+
+    #Testing rendering QuestAdd blank form
+    def test_blank_form(self):
+        client = Client()
+        response = client.get('/quests/add')
+        form = AddQuestForm()
+        form.quest_title=''
+        form.quest_body=''
+        self.assertFalse(form.is_valid())

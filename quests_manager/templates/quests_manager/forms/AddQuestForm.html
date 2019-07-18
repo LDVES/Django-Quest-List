@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Listing Quests
+{% endblock %}
+
+{% block content %}
+<form action="{% url 'quests_manager:add' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit" class="btn btn-primary">
+</form>
+
+{% endblock %}
