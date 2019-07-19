@@ -46,8 +46,6 @@ class AddQuestView(View):
         if form.is_valid():
 
             quest = Quest(title = form.data['quest_title'], body = form.data['quest_body'])
-            quest.title = ('title')
-            quest.body = ('body')
             quest.save()
 
             return HttpResponseRedirect(reverse('quests_manager:index'))

@@ -5,10 +5,25 @@ Listing Quests
 {% endblock %}
 
 {% block content %}
-<form action="{% url 'quests_manager:add' %}" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit" class="btn btn-primary">
-</form>
-
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <br>
+    <h1>Add new quest</h1>
+  <form action="{% url 'quests_manager:add' %}" method="post">
+      {% csrf_token %}
+      {{ form.quest_title.label }}
+      <br>
+      {{ form.quest_title }}
+      <br>
+      {{ form.quest_body.label }}
+      <br>
+      {{ form.quest_body }}
+      <br>
+      <br>
+      <input type="submit" value="Add" class="btn btn-primary">
+  </form>
+  </div>
+<div class="col-md-4"></div>
+</div>
 {% endblock %}
