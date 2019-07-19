@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class Page(models.Model):
     title = models.CharField(max_length=100)
-    body = models.CharField(max_length=255)
+    body = models.TextField()
     page_name_choices = [
     ('Homepage','homepage'),
     ('About_us', 'about_us'),

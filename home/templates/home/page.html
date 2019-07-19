@@ -5,11 +5,15 @@
 {% endblock %}
 
 {% block content %}
+<content class="text-center">
 {% if page %}
 <h1>{{ page.title }}</h1>
+<hr>
   {{ page.body }}
 {% else %}
-<h1>Page title haven't been set</h1>
-Page body haven't been set
+
+	<h1 class="">Page title haven't been set</h1>
+	Page body haven't been set
 {% endif %}
+</content>
 {% endblock %}
