@@ -11,4 +11,5 @@ Details | {{ quest.title }}
 <br>
 <a class="btn btn-danger" href="{% url 'quests_manager:delete' object.pk %}">Delete</a>
 <a class="btn btn-info text-right" href="{% url 'quests_manager:update' object.pk %}">Update</a>
+<a class="btn btn-secondary text-right" href="{% url 'quests_manager:index' %}">Go back</a>
 {% endblock %}
