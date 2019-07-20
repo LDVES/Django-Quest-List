@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Details | {{ quest.title }}
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Confirm Deletion</h1>
+<hr>
+<form method="post" class="text-center">{% csrf_token %}
+    <p>Are you sure you want to delete "{{ object }}"?
+    <input type="submit" value="Confirm" class="btn btn-danger">
+    </p>
+</form>
+{% endblock %}

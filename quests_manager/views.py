@@ -1,51 +1,42 @@
 #View stuff
 from django.shortcuts import render, get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
 from django.views import View
+from django.views.generic import (
+ListView,
+CreateView,
+DetailView,
+DeleteView,
+UpdateView,
+)
+
 #DB stuff
 from .models import Quest
-from .forms import AddQuestForm
 
-class ListView(View):
+#Quest CRUD
+
+
+class QuestsList(ListView):
+    model = Quest
+    context_object_name = 'quests'
     template_name = 'quests_manager/index.html'
 
-    def get(self, request):
-        #Getting updated quests
-        quests = Quest.objects.all()
-        return render(request, self.template_name, { 'quests' : quests })
-
-class DetailView(View):
+class QuestDetail(DetailView):
+    model = Quest
     template_name = 'quests_manager/detail.html'
-    def get(self, request, quest_id):
-        #Getting updated quests
-        quests = Quest.objects.all()
 
-        quest = get_object_or_404(Quest, id=quest_id)
-        return render(request, self.template_name, { 'quest' : quest })
+class QuestCreate(CreateView):
+    model = Quest
+    fields = ['title', 'body']
+    template_name = 'quests_manager/forms/quest_create_form.html'
 
-#Deleting Quest
-class DeleteQuestView(View):
-    def get(self, request, quest_id):
-        #Getting updated quests
-        quests = Quest.objects.all()
+class QuestDelete(DeleteView):
+    model = Quest
+    template_name = 'quests_manager/delete.html'
+    success_url = reverse_lazy("quests_manager:index")
 
-        quest = get_object_or_404(Quest, id=quest_id)
-        quest.delete()
-        return HttpResponseRedirect(reverse('quests_manager:index'))
-
-#Adding new Quest
-class AddQuestView(View):
-    #rendering the form
-    def get(self, request):
-        form =  AddQuestForm()
-        return render(request, 'quests_manager/forms/AddQuestForm.html', { 'form' : form })
-    #Getting and processing data from form
-    def post(self, request):
-        form = AddQuestForm(request.POST)
-        if form.is_valid():
-
-            quest = Quest(title = form.data['quest_title'], body = form.data['quest_body'])
-            quest.save()
-
-            return HttpResponseRedirect(reverse('quests_manager:index'))
+class QuestUpdate(UpdateView):
+    model = Quest
+    fields = ['title', 'body']
+    template_name = "quests_manager/forms/quest_update_form.html"
