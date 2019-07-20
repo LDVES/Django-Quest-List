@@ -17,6 +17,10 @@ Listing Quests
 {% endfor %}
 {% else %}
 No quests to display.
+<br>
+Let's create one.
+<br>
+<a class="btn btn-success" href="{% url 'quests_manager:add' %}">Create</a>
 {% endif %}
 
 {% endblock %}

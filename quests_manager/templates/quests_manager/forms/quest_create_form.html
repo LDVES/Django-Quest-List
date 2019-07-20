@@ -13,9 +13,11 @@ Listing Quests
       {% csrf_token %}
       {{ form.as_p }}
       <input type="submit" value="Add" class="btn btn-primary">
+	  <a class="btn btn-secondary text-right" href="{% url 'quests_manager:index' %}">Go back</a>
   </form>
   <br>
   <br>
+  
   {% if form.errors %}
     <div class="alert alert-danger" role="alert">
       {{ form.errors }}

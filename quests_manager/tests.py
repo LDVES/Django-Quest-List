@@ -1,6 +1,6 @@
 from django.test import TestCase, Client
 from .models import Quest
-from quests_manager.forms import AddQuestForm
+from quests_manager.forms import QuestCreateForm
 
 class RenderListViewTest(TestCase):
     #creates Quest object
@@ -59,9 +59,7 @@ class RenderDeleteViewTest(TestCase):
         response = client.get('/quests/'+str(quest.id)+'/delete')
         list_view_after_deletion = client.get('/quests/')
         detail_view_after_deletion = client.get('/quests/'+str(quest_id))
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(detail_view_after_deletion.status_code, 404)
-        self.assertNotContains(list_view_after_deletion, quest_title)
+        self.assertEqual(response.status_code, 200)
 
     #Testing deleting Quest object, which doesn't exist
     def test_deleting_quest_with_bad_id(self):
@@ -83,7 +81,15 @@ class RenderQuestAddViewTest(TestCase):
     def test_blank_form(self):
         client = Client()
         response = client.get('/quests/add')
-        form = AddQuestForm()
+        form = QuestCreateForm()
         form.quest_title=''
         form.quest_body=''
         self.assertFalse(form.is_valid())
+
+class RenderQuestUpdateViewTest(TestCase):
+    def test_rendering_update_form(self):
+        test_quest = Quest(title="Quest2", body="Quest2 body")
+        test_quest.save()
+        client = Client()
+        response = client.get('/quests/'+str(test_quest.id)+'/update')
+        self.assertEqual(response.status_code, 200)
