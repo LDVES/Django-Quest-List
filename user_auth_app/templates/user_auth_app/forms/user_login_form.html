@@ -13,12 +13,16 @@ Listing Quests
     <hr>
   <form method="post">
   {% csrf_token %}
-  {{ form }}
+  {{ form.username.label }}
+  {{ form.username }}
+  {{ form.username.errors }}
+
+  {{ form.password.label }}
+  {{ form.password }}
+  {{ form.password.errors }}
   <br>
   <input type="submit" class="btn btn-primary" value="Log in">
 </form>
-  {{ form.errors }}
-
 <div class="col-md-4"></div>
 </div>
 {% endblock %}
