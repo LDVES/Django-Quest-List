@@ -1,6 +1,5 @@
-from django.shortcuts import render, reverse, redirect
+from django.shortcuts import render,  redirect
 from django.urls import reverse_lazy
-from django.http import HttpResponseRedirect
 from django.views import View
 from django.views.generic.edit import FormView
 from user_auth_app.forms import UserLoginForm
@@ -12,13 +11,6 @@ class UserLogin(FormView):
     template_name = 'user_auth_app/forms/user_login_form.html'
     form_class = UserLoginForm
     success_url = reverse_lazy('quests_manager:index')
-
-    #Checking if user is authenticated
-    def get(self, request):
-        if request.user.is_authenticated:
-            return HttpResponseRedirect(self.success_url)
-        else:
-           return render(request, self.template_name, { 'form'  : self.form_class })
 
     def form_valid(self, form):
         #Getting data from Form
@@ -36,13 +28,6 @@ class UserRegister(FormView):
     template_name = 'user_auth_app/forms/user_register_form.html'
     form_class = UserCreationForm
     success_url = reverse_lazy('user_auth_app:login')
-
-    #Checking if user is authenticated
-    def get(self, request):
-        if request.user.is_authenticated:
-            return HttpResponseRedirect(self.success_url)
-        else:
-           return render(request, self.template_name, { 'form'  : self.form_class })
 
     #Getting data from Form and processing
     def form_valid(self, form):
