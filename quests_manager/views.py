@@ -1,13 +1,14 @@
 #View stuff
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import (
 ListView,
 CreateView,
 DetailView,
 DeleteView,
 UpdateView,
+FormView,
 )
-
+from .forms import QuestCreateForm
 #DB stuff
 from .models import Quest
 
@@ -25,8 +26,9 @@ class QuestDetail(DetailView):
 
 class QuestCreate(CreateView):
     model = Quest
-    fields = ['title', 'body']
+    form_class = QuestCreateForm
     template_name = 'quests_manager/forms/quest_create_form.html'
+    success_url = reverse_lazy("quests_manager:index")
 
 class QuestDelete(DeleteView):
     model = Quest
@@ -35,5 +37,5 @@ class QuestDelete(DeleteView):
 
 class QuestUpdate(UpdateView):
     model = Quest
-    fields = ['title', 'body']
+    form_class = QuestCreateForm
     template_name = "quests_manager/forms/quest_update_form.html"

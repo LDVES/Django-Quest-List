@@ -1,11 +1,5 @@
 from django.urls import path
-from quests_manager.views import (
-QuestsList,
-QuestDetail,
-QuestDelete,
-QuestCreate,
-QuestUpdate
-)
+from quests_manager.views import QuestsList, QuestDetail, QuestDelete, QuestCreate, QuestUpdate
 #Namespace for quests manager
 app_name='quests_manager'
 urlpatterns = [
