@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic.edit import FormView
 from user_auth_app.forms import UserLoginForm
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 
@@ -12,6 +13,7 @@ class UserLogin(FormView):
     form_class = UserLoginForm
     success_url = reverse_lazy('quests_manager:index')
 
+    #Checking if user is logged
     def get(self, request):
         if request.user.is_authenticated:
             return redirect('quests_manager:index')
@@ -28,6 +30,8 @@ class UserLogin(FormView):
             login(self.request, user)
             return super().form_valid(form)
         else:
+            #Invalid credentials message
+            messages.add_message(self.request, messages.ERROR, 'Invalid credentials' )
             return redirect('user_auth_app:login')
 
 class UserRegister(FormView):
@@ -35,6 +39,7 @@ class UserRegister(FormView):
     form_class = UserCreationForm
     success_url = reverse_lazy('user_auth_app:login')
 
+    #Checking if user is logged
     def get(self, request):
         if request.user.is_authenticated:
             return redirect('quests_manager:index')

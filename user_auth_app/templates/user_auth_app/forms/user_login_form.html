@@ -11,18 +11,30 @@ Listing Quests
     <br>
     <h1 class="text-center">Log in</h1>
     <hr>
-  <form method="post">
-  {% csrf_token %}
-  {{ form.username.label }}
-  {{ form.username }}
-  {{ form.username.errors }}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.username.label }}
+            {{ form.username }}
+            {{ form.username.errors }}
 
-  {{ form.password.label }}
-  {{ form.password }}
-  {{ form.password.errors }}
-  <br>
-  <input type="submit" class="btn btn-primary" value="Log in">
-</form>
+            {{ form.password.label }}
+            {{ form.password }}
+            {{ form.password.errors }}
+            <br>
+            <input type="submit" class="btn btn-primary" value="Log in">
+      </form>
+      <br>
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+</div>
 <div class="col-md-4"></div>
 </div>
 {% endblock %}
