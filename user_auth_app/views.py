@@ -12,6 +12,12 @@ class UserLogin(FormView):
     form_class = UserLoginForm
     success_url = reverse_lazy('quests_manager:index')
 
+    def get(self, request):
+        if request.user.is_authenticated:
+            return redirect('quests_manager:index')
+        else:
+            return render(request, self.template_name, { 'form' : self.form_class })
+
     def form_valid(self, form):
         #Getting data from Form
         username = form.cleaned_data['username']
@@ -28,6 +34,12 @@ class UserRegister(FormView):
     template_name = 'user_auth_app/forms/user_register_form.html'
     form_class = UserCreationForm
     success_url = reverse_lazy('user_auth_app:login')
+
+    def get(self, request):
+        if request.user.is_authenticated:
+            return redirect('quests_manager:index')
+        else:
+            return render(request, self.template_name, { 'form' : self.form_class })
 
     #Getting data from Form and processing
     def form_valid(self, form):
