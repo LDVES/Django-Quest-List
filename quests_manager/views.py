@@ -32,7 +32,7 @@ class QuestDetail(CheckIfUserIsAuthenticated, DetailView):
 
 class QuestCreate(CheckIfUserIsAuthenticated, CreateView):
     model = Quest
-    fields = ['title', 'body']
+    fields = ['title', 'body', 'author']
     template_name = 'quests_manager/forms/quest_create_form.html'
 
 class QuestDelete(CheckIfUserIsAuthenticated, DeleteView):
