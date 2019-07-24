@@ -6,6 +6,7 @@ from user_auth_app.forms import UserLoginForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import logout
 
 # Create your views here.
 class UserLogin(FormView):
@@ -15,10 +16,10 @@ class UserLogin(FormView):
 
     #Checking if user is logged
     def get(self, request):
-        if request.user.is_authenticated:
-            return redirect('quests_manager:index')
-        else:
-            return render(request, self.template_name, { 'form' : self.form_class })
+       if request.user.is_authenticated:
+           return redirect('quests_manager:index')
+       else:
+           return render(request, self.template_name, { 'form' : self.form_class })
 
     def form_valid(self, form):
         #Getting data from Form
@@ -53,3 +54,8 @@ class UserRegister(FormView):
         user = authenticate(username = username, password = password)
         form.save()
         return super().form_valid(form)
+
+#Loggin out user
+def logout_view(request):
+    logout(request)
+    return redirect('user_auth_app:login')
