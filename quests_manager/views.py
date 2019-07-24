@@ -2,6 +2,8 @@
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.views import View
 from django.views.generic import (
 ListView,
 CreateView,
@@ -12,35 +14,36 @@ UpdateView,
 
 #DB stuff
 from .models import Quest
+
+#Checking if user is authenticated
+class TestIfUserIsAuthenticated(UserPassesTestMixin, View):
+    login_url='home:index'
+
+    def test_func(self):
+        return self.request.user.is_authenticated
+
 #Quest CRUD
 
-class QuestsList(ListView):
+class QuestsList(TestIfUserIsAuthenticated, ListView):
     model = Quest
     context_object_name = 'quests'
     template_name = 'quests_manager/index.html'
 
-class QuestDetail(DetailView):
+class QuestDetail(TestIfUserIsAuthenticated, DetailView):
     model = Quest
     template_name = 'quests_manager/detail.html'
 
-class QuestCreate(CreateView):
+class QuestCreate(TestIfUserIsAuthenticated, CreateView):
     model = Quest
     fields = ['title', 'body']
     template_name = 'quests_manager/forms/quest_create_form.html'
 
-    def get(self, request):
-        if request.user.is_authenticated:
-            return render(request, self.template_name, { 'form' : self.form })
-        else:
-            messages.add_message(request, messages.ERROR, 'You are not logged in')
-            return redirect('quests_manager:index')
-
-class QuestDelete(DeleteView):
+class QuestDelete(TestIfUserIsAuthenticated, DeleteView):
     model = Quest
     template_name = 'quests_manager/delete.html'
     success_url = reverse_lazy("quests_manager:index")
 
-class QuestUpdate(UpdateView):
+class QuestUpdate(TestIfUserIsAuthenticated, UpdateView):
     model = Quest
     fields = ['title', 'body']
     template_name = "quests_manager/forms/quest_update_form.html"
