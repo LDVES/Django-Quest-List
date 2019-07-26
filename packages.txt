@@ -1,0 +1,10 @@
+asgiref==3.1.2
+async-timeout==3.0.1
+# Editable install with no version control (Django==2.2.3)
+-e c:\users\ldvs\appdata\local\programs\python\python37-32\lib\site-packages
+django-cors-headers==3.0.2
+django-filter==2.2.0
+djangorestframework==3.10.1
+Markdown==3.1.1
+pytz==2019.1
+sqlparse==0.3.0
