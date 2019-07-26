@@ -1,4 +1,6 @@
 #View stuff
+
+from django.urls import reverse_lazy, reverse
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -10,8 +12,9 @@ CreateView,
 DetailView,
 DeleteView,
 UpdateView,
+FormView,
 )
-
+from .forms import QuestCreateForm
 #DB stuff
 from .models import Quest
 
@@ -32,8 +35,10 @@ class QuestDetail(CheckIfUserIsAuthenticated, DetailView):
 
 class QuestCreate(CheckIfUserIsAuthenticated, CreateView):
     model = Quest
+    form_class = QuestCreateForm
     fields = ['title', 'body', 'author']
     template_name = 'quests_manager/forms/quest_create_form.html'
+    success_url = reverse_lazy("quests_manager:index")
 
 class QuestDelete(CheckIfUserIsAuthenticated, DeleteView):
     model = Quest
@@ -42,5 +47,5 @@ class QuestDelete(CheckIfUserIsAuthenticated, DeleteView):
 
 class QuestUpdate(CheckIfUserIsAuthenticated, UpdateView):
     model = Quest
-    fields = ['title', 'body']
+    form_class = QuestCreateForm
     template_name = "quests_manager/forms/quest_update_form.html"

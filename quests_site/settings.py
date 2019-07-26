@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
 	'home.apps.HomeConfig',
 	'quests_manager.apps.QuestsManagerConfig',
+	'user_auth_app.apps.UserAuthAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -1,6 +1,12 @@
 from django import forms
+from django.forms import ModelForm
+from .models import Quest
 
-class QuestCreateForm(forms.Form):
-    quest_title = forms.CharField(label='Title', max_length=50)
-    quest_body = forms.CharField(label='Body', max_length=100)
-#class EditQuestForm(forms.Form)
+class QuestCreateForm(forms.ModelForm):
+     class Meta:
+         model = Quest
+         fields = ['title', 'body']
+         widgets = {
+         'title' : forms.TextInput(attrs={'class': "form-control"}),
+         'body' : forms.TextInput(attrs={'class': "form-control"}),
+         }
