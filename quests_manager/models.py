@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Quest(models.Model):
     id = models.AutoField(primary_key=True)
-    title = models.TextField(max_length=50)
+    title = models.CharField(max_length=50)
     body = models.TextField(max_length=2000)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 

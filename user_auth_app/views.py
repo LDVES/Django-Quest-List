@@ -6,6 +6,7 @@ from user_auth_app.forms import UserLoginForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import HttpResponseRedirect
 from django.contrib.auth import logout
 
 # Create your views here.
@@ -58,4 +59,4 @@ class UserRegister(FormView):
 #Loggin out user
 def logout_view(request):
     logout(request)
-    return redirect('user_auth_app:login')
+    return redirect('home:index')

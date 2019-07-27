@@ -20,7 +20,7 @@ from .models import Quest
 
 #Checking if user is authenticated
 class CheckIfUserIsAuthenticated(LoginRequiredMixin, View):
-    login_url='home:index'
+    login_url='user_auth_app:login'
 
 #Quest CRUD
 
@@ -35,7 +35,7 @@ class QuestDetail(CheckIfUserIsAuthenticated, DetailView):
 
 class QuestCreate(CheckIfUserIsAuthenticated, CreateView):
     model = Quest
-    form_class = QuestCreateForm
+    #form_class = QuestCreateForm
     fields = ['title', 'body', 'author']
     template_name = 'quests_manager/forms/quest_create_form.html'
     success_url = reverse_lazy("quests_manager:index")
