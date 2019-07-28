@@ -17,11 +17,14 @@ FormView,
 from .forms import QuestCreateForm
 #DB stuff
 from .models import Quest
+#-----------------------
+#Custom Middleware
+from .middleware.QuestsCRUDMiddleware import QuestsCRUDMiddleware
+#----------------------
 
 #Checking if user is authenticated
 class CheckIfUserIsAuthenticated(LoginRequiredMixin, View):
     login_url='user_auth_app:login'
-
 
 #Quest CRUD
 
@@ -40,15 +43,11 @@ class QuestCreate(CheckIfUserIsAuthenticated, CreateView, FormView):
     template_name = 'quests_manager/forms/quest_create_form.html'
     success_message = "Quest was created successfully"
     success_url = reverse_lazy("quests_manager:index")
+    #Custom Middleware
+    crud_middleware = QuestsCRUDMiddleware
 
     def form_valid(self, form):
-        title = form.cleaned_data['title']
-        body = form.cleaned_data['body']
-        author = self.request.user
-        new_quest = Quest(title = title, body = body, author=author)
-        new_quest.save()
-        messages.success(self.request, self.success_message)
-        return redirect(self.success_url)
+        return self.crud_middleware.create_quest(self, form)
 
 class QuestDelete(CheckIfUserIsAuthenticated, DeleteView):
     model = Quest
