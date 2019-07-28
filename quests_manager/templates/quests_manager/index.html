@@ -10,8 +10,11 @@ Listing Quests
 {% for quest in quests %}
 <div class="jumbotron">
   <h1 class="display-4">{{ quest.title }}</h1>
-  <p class="lead">{{ quest.body }}</p>
+  <p class="lead">{{ quest.body }} </p>
   <hr class="my-4">
+  <br>
+  <p><b>By {{ quest.author }}</b></p>
+  <br>
   <a class="btn btn-primary btn-lg" href="{% url 'quests_manager:detail' quest.id %}" role="button">Learn more</a>
 </div>
 {% endfor %}
@@ -27,6 +30,7 @@ Let's create one.
   {% if messages %}
     <div class="alert alert-danger">
         {% for message in messages %}
+
             {{ message }}
         {% endfor %}
     </div>

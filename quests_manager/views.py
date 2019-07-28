@@ -1,5 +1,5 @@
 #View stuff
-
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
@@ -22,6 +22,7 @@ from .models import Quest
 class CheckIfUserIsAuthenticated(LoginRequiredMixin, View):
     login_url='user_auth_app:login'
 
+
 #Quest CRUD
 
 class QuestsList(CheckIfUserIsAuthenticated, ListView):
@@ -33,19 +34,30 @@ class QuestDetail(CheckIfUserIsAuthenticated, DetailView):
     model = Quest
     template_name = 'quests_manager/detail.html'
 
-class QuestCreate(CheckIfUserIsAuthenticated, CreateView):
+class QuestCreate(CheckIfUserIsAuthenticated, CreateView, FormView):
     model = Quest
-    #form_class = QuestCreateForm
-    fields = ['title', 'body', 'author']
+    fields = ['title', 'body']
     template_name = 'quests_manager/forms/quest_create_form.html'
+    success_message = "Quest was created successfully"
     success_url = reverse_lazy("quests_manager:index")
+
+    def form_valid(self, form):
+        title = form.cleaned_data['title']
+        body = form.cleaned_data['body']
+        author = self.request.user
+        new_quest = Quest(title = title, body = body, author=author)
+        new_quest.save()
+        messages.success(self.request, self.success_message)
+        return redirect(self.success_url)
 
 class QuestDelete(CheckIfUserIsAuthenticated, DeleteView):
     model = Quest
     template_name = 'quests_manager/delete.html'
     success_url = reverse_lazy("quests_manager:index")
+    success_message = "Quest was deleted successfully"
 
 class QuestUpdate(CheckIfUserIsAuthenticated, UpdateView):
     model = Quest
     form_class = QuestCreateForm
     template_name = "quests_manager/forms/quest_update_form.html"
+    success_message = "Quest was updated successfully"
