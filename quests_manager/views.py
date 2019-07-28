@@ -71,3 +71,7 @@ class QuestUpdate(check_if_user_is_authenticated, UpdateView):
     success_message = "Quest was updated successfully"
     #Custom Middleware
     crud_middleware = QuestsCRUDMiddleware
+
+    def get_object(self, queryset=None):
+        quest_to_update = super(QuestUpdate, self).get_object()
+        return self.crud_middleware.update_quest(self, quest_to_update)

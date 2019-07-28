@@ -24,3 +24,8 @@ class QuestsCRUDMiddleware():
         if not quest_to_delete.author == self.request.user:
             raise Http404
         return quest_to_delete
+
+    def update_quest(self, quest_to_update):
+        if not quest_to_update.author == self.request.user:
+            raise Http404
+        return quest_to_update
