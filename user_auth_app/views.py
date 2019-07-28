@@ -1,5 +1,6 @@
 from django.urls import reverse_lazy
 
+from django.shortcuts import redirect
 from django.views.generic.edit import FormView
 from user_auth_app.forms import UserLoginForm
 
