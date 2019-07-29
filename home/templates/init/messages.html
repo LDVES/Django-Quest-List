@@ -1,7 +1,24 @@
 {% if messages %}
 <ul class="messages">
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
+      {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                <div class="alert alert-danger">
+                  {{ message }}
+                </div>
+              </li>
+          {% endif %}
+          {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+              <div class="alert alert-success">
+                {{ message }}
+              </div>
+            </li>
+        {% endif %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+            <div class="alert alert-info">
+              {{ message }}
+            </div>
+          </li>
+      {% endif %}
+      {% endfor %}
 </ul>
 {% endif %}
