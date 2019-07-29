@@ -23,7 +23,7 @@ class UserAuthMiddleware():
             return redirect(self.success_url)
         else:
             #Invalid credentials message
-            messages.add_message(self.request, messages.ERROR, 'Invalid credentials' )
+            messages.error(self.request, messages.ERROR, 'Invalid credentials' )
             return redirect('user_auth_app:login')
 
 

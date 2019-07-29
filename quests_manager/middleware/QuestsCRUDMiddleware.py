@@ -17,7 +17,7 @@ class QuestsCRUDMiddleware():
             author = self.request.user
             new_quest = Quest(title = title, body = body, author=author)
             new_quest.save()
-            messages.success(self.request, self.success_message)
+            #messages.message.error(self.request, self.success_message)
             return redirect(self.success_url)
 
     def process_quest_object(self, quest_object):

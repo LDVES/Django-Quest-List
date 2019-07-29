@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.views.generic.edit import FormView
 from user_auth_app.forms import UserLoginForm
 
-from django.contrib.auth.forms import UserCreationForm
+from .forms import UserRegisterForm
 from django.contrib.auth import logout
 
 #Custom Middleware
@@ -30,7 +30,7 @@ class UserLogin(FormView):
 
 class UserRegister(UserLogin):
     template_name = 'user_auth_app/forms/user_register_form.html'
-    form_class = UserCreationForm
+    form_class = UserRegisterForm
 
     def get(self, request):
         return self.user_auth_middleware.redirect_user_if_authenticated(self, self.request)
