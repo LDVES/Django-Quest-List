@@ -4,6 +4,7 @@ from django.urls import reverse_lazy, reverse
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 
 from django.views.generic import (
 ListView,
@@ -33,7 +34,7 @@ class QuestsList(check_if_user_is_authenticated, ListView):
     #Custom Middleware
     crud_middleware = QuestsCRUDMiddleware
 
-    #Getting only user's Quests 
+    #Getting only user's Quests
     def get_queryset(self):
         queryset = Quest.objects.filter(author = self.request.user)
         return queryset
@@ -61,7 +62,7 @@ class QuestCreate(check_if_user_is_authenticated, CreateView, FormView):
     def form_valid(self, form):
         return self.crud_middleware.create_quest(self, form)
 
-class QuestDelete(check_if_user_is_authenticated, DeleteView):
+class QuestDelete(SuccessMessageMixin, check_if_user_is_authenticated, DeleteView):
     model = Quest
     template_name = 'quests_manager/delete.html'
     success_url = reverse_lazy("quests_manager:index")
@@ -74,7 +75,7 @@ class QuestDelete(check_if_user_is_authenticated, DeleteView):
         quest_to_delete = super(QuestDelete, self).get_object()
         return self.crud_middleware.process_quest_object(self, quest_to_delete)
 
-class QuestUpdate(check_if_user_is_authenticated, UpdateView):
+class QuestUpdate(SuccessMessageMixin, check_if_user_is_authenticated, UpdateView):
     model = Quest
     form_class = QuestCreateForm
     template_name = "quests_manager/forms/quest_update_form.html"

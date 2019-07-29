@@ -25,14 +25,4 @@ Let's create one.
 <br>
 <a class="btn btn-success" href="{% url 'quests_manager:add' %}">Create</a>
 {% endif %}
-<br>
-<br>
-  {% if messages %}
-    <div class="alert alert-danger">
-        {% for message in messages %}
-
-            {{ message }}
-        {% endfor %}
-    </div>
-  {% endif %}
 {% endblock %}
