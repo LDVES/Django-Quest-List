@@ -33,11 +33,21 @@ class QuestsList(check_if_user_is_authenticated, ListView):
     #Custom Middleware
     crud_middleware = QuestsCRUDMiddleware
 
+    #Getting only user's Quests 
+    def get_queryset(self):
+        queryset = Quest.objects.filter(author = self.request.user)
+        return queryset
+
 class QuestDetail(check_if_user_is_authenticated, DetailView):
     model = Quest
     template_name = 'quests_manager/detail.html'
     #Custom Middleware
     crud_middleware = QuestsCRUDMiddleware
+
+    def get_object(self, queryset=None):
+        quest_to_show = super(QuestDetail, self).get_object()
+        return self.crud_middleware.process_quest_object(self, quest_to_show)
+
 
 class QuestCreate(check_if_user_is_authenticated, CreateView, FormView):
     model = Quest
@@ -62,7 +72,7 @@ class QuestDelete(check_if_user_is_authenticated, DeleteView):
 
     def get_object(self, queryset=None):
         quest_to_delete = super(QuestDelete, self).get_object()
-        return self.crud_middleware.delete_quest(self, quest_to_delete)
+        return self.crud_middleware.process_quest_object(self, quest_to_delete)
 
 class QuestUpdate(check_if_user_is_authenticated, UpdateView):
     model = Quest
@@ -74,4 +84,4 @@ class QuestUpdate(check_if_user_is_authenticated, UpdateView):
 
     def get_object(self, queryset=None):
         quest_to_update = super(QuestUpdate, self).get_object()
-        return self.crud_middleware.update_quest(self, quest_to_update)
+        return self.crud_middleware.process_quest_object(self, quest_to_update)

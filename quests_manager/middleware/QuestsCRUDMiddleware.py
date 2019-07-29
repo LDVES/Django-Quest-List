@@ -20,12 +20,7 @@ class QuestsCRUDMiddleware():
             messages.success(self.request, self.success_message)
             return redirect(self.success_url)
 
-    def delete_quest(self, quest_to_delete):
-        if not quest_to_delete.author == self.request.user:
+    def process_quest_object(self, quest_object):
+        if not quest_object.author == self.request.user:
             raise Http404
-        return quest_to_delete
-
-    def update_quest(self, quest_to_update):
-        if not quest_to_update.author == self.request.user:
-            raise Http404
-        return quest_to_update
+        return quest_object
