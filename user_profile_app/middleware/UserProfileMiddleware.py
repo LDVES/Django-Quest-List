@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
+from django.contrib import messages
 
 from django.contrib.auth.models import User
 
@@ -20,6 +21,8 @@ class UserProfileMiddleware():
         if user.check_password(current_password):
             user.set_password(new_password)
             user.save()
+            messages.add_message(self.request, messages.SUCCESS, 'Your password has been changed')
             return redirect('user_profile_app:profile')
         else:
+            messages.add_message(self.request, messages.ERROR, 'Invalid current password')
             return redirect('user_profile_app:password_change')
