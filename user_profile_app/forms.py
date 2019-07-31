@@ -7,7 +7,7 @@ class ChangePasswordForm(forms.Form):
         'placeholder': 'Password'
     }))
 
-    password2 = forms.CharField(label="Confirm password", widget=forms.PasswordInput(attrs=
+    password2 = forms.CharField(label="New password", widget=forms.PasswordInput(attrs=
     {
         'class': "form-control",
         'placeholder': 'Confirm Password'

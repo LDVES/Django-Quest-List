@@ -52,7 +52,7 @@ class QuestDetail(check_if_user_is_authenticated, DetailView):
 
 class QuestCreate(check_if_user_is_authenticated, CreateView, FormView):
     model = Quest
-    fields = ['title', 'body']
+    form_class = QuestCreateForm
     template_name = 'quests_manager/forms/quest_create_form.html'
     success_message = "Quest was created successfully"
     success_url = reverse_lazy("quests_manager:index")

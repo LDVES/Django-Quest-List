@@ -8,5 +8,5 @@ class QuestCreateForm(forms.ModelForm):
          fields = ['title', 'body']
          widgets = {
          'title' : forms.TextInput(attrs={'class': "form-control"}),
-         'body' : forms.TextInput(attrs={'class': "form-control"}),
+         'body' : forms.TextInput(attrs={'class': "form-control", 'type' : 'textarea'}),
          }
