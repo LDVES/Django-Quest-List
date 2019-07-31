@@ -8,22 +8,26 @@ Listing Quests
 <br>
 <h1>Quests</h1>
 {% if quests %}
-{% for quest in quests %}
-<div class="jumbotron">
-  <h1 class="display-4">{{ quest.title }}</h1>
-  <p class="lead">{{ quest.body }} </p>
-  <hr class="my-4">
-  <br>
-  <p><b>By {{ quest.author }}</b></p>
-  <br>
-  <a class="btn btn-primary btn-lg" href="{% url 'quests_manager:detail' quest.id %}" role="button">Learn more</a>
+<div class="container">
+<div class="row">
+  {% for quest in quests %}
+          <div class="card" style="width: 15rem;">
+            <div class="card-body ">
+              <h5 class="card-title text-center">{{ quest.title | upper }}</h5>
+              <p class="card-text text-center">{{ quest.body }}</p>
+              <a class="btn btn-outline-info btn-block" href="{% url 'quests_manager:detail' quest.id %}" role="button">Details</a>
+            </div>
+          </div>
+
+          {% endfor %}
+          {% else %}
+          No quests to display.
+          <br>
+          Let's create one.
+          <br>
+          <a class="btn btn-success" href="{% url 'quests_manager:add' %}">Create</a>
+          {% endif %}
 </div>
-{% endfor %}
-{% else %}
-No quests to display.
-<br>
-Let's create one.
-<br>
-<a class="btn btn-success" href="{% url 'quests_manager:add' %}">Create</a>
-{% endif %}
+</div>
+
 {% endblock %}

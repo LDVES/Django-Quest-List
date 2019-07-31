@@ -10,9 +10,8 @@ Details | {{ quest.title }}
 {{ object.body }}
 <br>
 <br>
-<p><b>By {{ quest.author }}</b></p>
 
-<a class="btn btn-danger" href="{% url 'quests_manager:delete' object.pk %}">Delete</a>
-<a class="btn btn-info text-right" href="{% url 'quests_manager:update' object.pk %}">Update</a>
-<a class="btn btn-secondary text-right" href="{% url 'quests_manager:index' %}">Go back</a>
+<a class="btn btn-outline-danger" href="{% url 'quests_manager:delete' object.pk %}">Delete</a>
+<a class="btn btn-outline-info text-right" href="{% url 'quests_manager:update' object.pk %}">Update</a>
+<a class="btn btn-outline-secondary text-right" href="{% url 'quests_manager:index' %}">Go back</a>
 {% endblock %}

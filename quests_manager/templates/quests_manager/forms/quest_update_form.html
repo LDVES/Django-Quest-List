@@ -13,8 +13,8 @@ Listing Quests
   <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
-      <input type="submit" value="Update" class="btn btn-info">
-      <a class="btn btn-secondary text-right" href="{% url 'quests_manager:detail' object.pk %}">Go back</a>
+      <input type="submit" value="Update" class="btn btn-outline-info">
+      <a class="btn btn-outline-secondary text-right" href="{% url 'quests_manager:detail' object.pk %}">Go back</a>
   </form>
   </div>
 <div class="col-md-4"></div>
