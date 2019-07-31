@@ -1,31 +1,49 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Listing Quests
+Register
 {% endblock %}
 
 {% block content %}
 <div class="row">
-  <div class="col-md-1"></div>
-  <div class="col-md-10">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
         <br>
-        <h1 class="text-center">Register</h1>
-        <hr>
-      <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <br>
-      <input type="submit" class="btn btn-primary" value="Register">
-    </form>
-    <br>
+      <div class="card">
 
-      {% if form.errors %}
-      <div class="alert alert-danger">
-        {{ form.errors }}
+            <h1 class="text-center card-title">Register</h1>
+            <hr>
+          <div class="card-body">
+              <form method="post">
+          {% csrf_token %}
+
+          {{ form.email.label }}
+          {{ form.email }}
+          <br>
+          {{ form.username.label }}
+          {{ form.username }}
+          <br>
+          {{ form.password1.label }}
+          {{ form.password1 }}
+          <br>
+          {{ form.password2.label }}
+          {{ form.password2 }}
+          <br>
+          <input type="submit" class="btn btn-primary" value="Register">
+        </form>
+        <br>
+
+          {% if form.errors %}
+          <div class="alert alert-danger">
+            {{ form.errors }}
+          </div>
+          {% endif %}
+
+          </div>
+
+
+        </div>
+        <div class="col-md-2"></div>
       </div>
-      {% endif %}
-
-    </div>
-    <div class="col-md-1"></div>
   </div>
   {% endblock %}

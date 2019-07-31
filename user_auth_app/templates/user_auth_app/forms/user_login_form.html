@@ -1,16 +1,19 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Listing Quests
+Log in
 {% endblock %}
 
 {% block content %}
 <div class="row">
-  <div class="col-md-4"></div>
-  <div class="col-md-4">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
     <br>
-    <h1 class="text-center">Log in</h1>
-    <hr>
+      <div class="card">
+          <br>
+    <h1 class="text-center card-title">Log in</h1>
+          <hr>
+          <div class="card-body">
         <form method="post">
             {% csrf_token %}
             {{ form.username.label }}
@@ -25,6 +28,8 @@ Listing Quests
       </form>
       <br>
 </div>
-<div class="col-md-4"></div>
+</div>
+</div>
+<div class="col-md-3"></div>
 </div>
 {% endblock %}

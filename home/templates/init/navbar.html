@@ -1,30 +1,41 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-CustomBlue">
-  <a class="navbar-brand" href="#">Live Quest Hub</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand font-weight-light" href="#"><b>Django ToDo List </b></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link {% if page.page_name == 'Homepage' %}  active  {% endif %}" href="{% url 'home:index' %}">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link {% if request.path == '/'  %}  active  {% endif %}" href="{% url 'home:index' %}">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item {% if page.page_name == 'About_us' %}  active  {% endif %}">
+      <li class="nav-item {% if request.path == '/about' %}  active  {% endif %}">
         <a class="nav-link" href="{% url 'home:about' %}">About us</a>
       </li>
-      <li class="nav-item {% if page.page_name == 'Contact' %}  active  {% endif %}">
+      <li class="nav-item {% if request.path == '/contact'  %}  active  {% endif %}">
         <a class="nav-link" href="{% url 'home:contact' %}">Contact</a>
       </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
       {% if user.is_authenticated %}
-      <li class="nav-item dropdown">
+      <li class="nav-item dropleft">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{ user.username }}
+          <b>{{ user.username }}</b>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Profile</a>
-          <a class="dropdown-item" href="#">Quests List</a>
+          <a class="dropdown-item" href="{% url 'user_profile_app:profile' %}">Profile</a>
+          <a class="dropdown-item" href="{% url 'quests_manager:index' %}">Quests List</a>
+          <a class="dropdown-item" href="{% url 'quests_manager:add' %}">Add new quest</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href=" {% url 'user_auth_app:logout' %}">Logout</a>
         </div>
+      </li>
+      {% else %}
+      <li class="nav-item ">
+        <a class=" btn btn-outline-light {% if request.path == '/login'  %} active {% endif %}" href="{% url 'user_auth_app:login' %}">Login</a>
+        &nbsp;
+      </li>
+      <li class="nav-item ">
+        <a class="btn btn-outline-light {% if request.path == '/register'  %} active {% endif %}" href="{% url 'user_auth_app:register' %}">Register</a>
       </li>
       {% endif %}
     </ul>

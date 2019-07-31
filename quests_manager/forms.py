@@ -7,6 +7,6 @@ class QuestCreateForm(forms.ModelForm):
          model = Quest
          fields = ['title', 'body']
          widgets = {
-         'title' : forms.TextInput(attrs={'class': "form-control"}),
-         'body' : forms.TextInput(attrs={'class': "form-control"}),
+         'title' : forms.TextInput(attrs={'class': "form-control", 'placeholder' : 'Quest title'}),
+         'body' : forms.TextInput(attrs={'class': "form-control", 'type' : 'textarea', 'placeholder' : 'Quest body'}),
          }
